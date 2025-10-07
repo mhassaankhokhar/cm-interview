@@ -12,6 +12,9 @@ their solution. Explaining decisions and technical concepts as we go.
 Both can be valid.
 
 ### k8s deployment
+
+* please don't use cloud infra providers like AWS, GCP etc. The cluster should
+be a local one.
   
 1. Set up a kubernetes cluster ie. kind, minikube, k3s etc.
 the one you like the most.
