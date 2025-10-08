@@ -1,0 +1,15 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    uses: mhassaankhokhar/reusable-templates/.github/workflows/build-template.yml@master
+    with:
+      IMAGE_NAME: "mhassaankhokhar/filter-stack"
+    secrets:
+      DOCKER_USER: ${{ secrets.DOCKER_USER }}
+      DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
