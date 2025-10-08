@@ -1,0 +1,2 @@
+[2025-10-08 16:05:52] is the date, should log to $STDOUT
+[2025-10-08 16:07:33] is the date, should log to /dev/stdout
