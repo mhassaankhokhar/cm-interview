@@ -13,6 +13,5 @@
 #!/bin/bash
 
 echo "Hello, World!"
-brew install minikube
 brew install kubectl
 brew install terraform
