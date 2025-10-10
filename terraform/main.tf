@@ -80,7 +80,7 @@ resource "helm_release" "kube_prometheus_stack" {
 resource "helm_release" "loki" {
   name             = "loki"
   repository       = "https://grafana.github.io/helm-charts"
-  chart            = "grafana/loki"
+  chart            = "loki"
   namespace        = "monitoring"
   create_namespace = true
 }
