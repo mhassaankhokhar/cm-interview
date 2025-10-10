@@ -1,0 +1,34 @@
+---
+- name: Create a single Multipass VM
+  hosts: localhost
+  gather_facts: false
+  vars:
+    name: cm-node
+    cpus: 4
+    mem: 4G
+    disk: 40G
+    image: "24.04"
+
+  tasks:
+    - name: Launch Multipass instance
+      ansible.builtin.shell: |
+        multipass launch --name {{ name }} --cpus {{ cpus }} --mem {{ mem }} --disk {{ disk }} {{ image }}
+      args:
+        executable: /bin/bash
+      register: launch_output
+      changed_when: "'already exists' not in launch_output.stdout"
+
+    - name: Wait for instance to initialize
+      ansible.builtin.pause:
+        seconds: 15
+
+    - name: Get instance IP
+      ansible.builtin.shell: multipass info {{ name }} --format json | jq -r '.info["{{ name }}"].ipv4[0]'
+      register: node_ip
+
+    - name: Write dynamic inventory
+      ansible.builtin.copy:
+        dest: ./inventory.ini
+        content: |
+          [multipass_node]
+          {{ name }} ansible_host={{ node_ip.stdout }} ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa
