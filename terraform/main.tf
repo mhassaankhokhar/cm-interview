@@ -74,6 +74,16 @@ resource "helm_release" "kube_prometheus_stack" {
 
 }
 
+# ------------------------------------------------------------
+# Add Loki
+# ------------------------------------------------------------
+resource "helm_release" "loki" {
+  name             = "loki-stack"
+  repository       = "https://grafana.github.io/helm-charts"
+  chart            = "loki"
+  namespace        = "monitoring"
+  create_namespace = true
+}
 output "grafana_url" {
   value = "http://localhost:${var.grafana_node_port}"
 }
