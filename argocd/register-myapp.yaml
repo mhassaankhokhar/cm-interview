@@ -30,6 +30,8 @@ spec:
     repoURL: https://github.com/mhassaankhokhar/cm-interview.git
     targetRevision: HEAD
     path: k8s
+    plugin:
+      name: kustomize
     
   # Deploy to default namespace (or create a specific namespace)
   destination:
