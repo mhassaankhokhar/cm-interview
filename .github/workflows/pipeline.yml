@@ -2,8 +2,11 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*.*.*'  # like v1.0.0
+
+    paths:
+      - app/**
 
 jobs:
   build:
