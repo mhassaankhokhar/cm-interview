@@ -12,7 +12,7 @@ jobs:
   build:
     uses: mhassaankhokhar/reusable-templates/.github/workflows/build-template.yml@master
     with:
-      DOCKER_IMAGE: "mhassaankhokhar/filter-stack"
+      DOCKER_IMAGE: "mhassaankhokhar/filter-stack:${{ github.ref_name }}"
     secrets:
       DOCKER_USER: ${{ secrets.DOCKER_USER }}
       DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
