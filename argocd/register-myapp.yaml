@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp
+  namespace: argocd
+  annotations:
+    # Enable automatic image updates
+    argocd-image-updater.argoproj.io/image-list: myapp=mhassaankhokhar/filter-stack
+    
+    # Use semantic versioning to track updates
+    argocd-image-updater.argoproj.io/myapp.update-strategy: semver
+    
+    # Allow tags matching version pattern (v1.0.0, v1.2.3, etc.)
+    argocd-image-updater.argoproj.io/myapp.allow-tags: "regexp:^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+    
+    # Write changes back to Git repository
+    argocd-image-updater.argoproj.io/write-back-method: git
+    
+    # Target branch for updates
+    argocd-image-updater.argoproj.io/git-branch: main
+    
+    # Check for new images every 2 minutes
+    argocd-image-updater.argoproj.io/myapp.update-interval: 2m
+    
+spec:
+  project: default
+  
+  # Your Git repository
+  source:
+    repoURL: https://github.com/mhassaankhokhar/cm-interview.git
+    targetRevision: HEAD
+    path: k8s
+    
+  # Deploy to default namespace (or create a specific namespace)
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+    
+  # Automatic sync policy
+  syncPolicy:
+    automated:
+      prune: true 
+      selfHeal: true 
+      allowEmpty: false
+    syncOptions:
+    - CreateNamespace=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
