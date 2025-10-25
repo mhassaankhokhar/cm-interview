@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     # Enable automatic image updates
-    argocd-image-updater.argoproj.io/image-list: myapp=mhassaankhokhar/filter-stack
+    argocd-image-updater.argoproj.io/image-list: myapp=mhassaankhokhar/filter-stack:~v1
     
     # Use semantic versioning to track updates
     argocd-image-updater.argoproj.io/myapp.update-strategy: semver
@@ -30,8 +30,8 @@ spec:
     repoURL: https://github.com/mhassaankhokhar/cm-interview.git
     targetRevision: HEAD
     path: k8s
-    plugin:
-      name: kustomize
+    kustomize:
+      namePrefix: ""
     
   # Deploy to default namespace (or create a specific namespace)
   destination:

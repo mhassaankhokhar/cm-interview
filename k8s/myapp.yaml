@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: myapp
-          image: mhassaankhokhar/filter-stack:v1.3.0
+          image: mhassaankhokhar/filter-stack
           ports:
             - containerPort: 80
 ---
