@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - mhassaankhokhar/filter-stack:v1.4.0
