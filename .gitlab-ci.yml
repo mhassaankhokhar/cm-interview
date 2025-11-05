@@ -11,6 +11,7 @@ build-job:
     - docker:24-dind
   before_script:
     - echo "docker hub login"
+    - echo "Docker user, ${DOCKER_USER}"
     - echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
