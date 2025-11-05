@@ -33,7 +33,6 @@ RUN touch /var/run/nginx.pid && \
 
 USER nginx
 
-COPY nginx.conf /etc/nginx/nginx.conf
 COPY app/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/dist/ /usr/share/nginx/html/
 EXPOSE 8080
