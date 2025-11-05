@@ -12,13 +12,7 @@ build-job:
   before_script:
     - echo "🔐 Docker login"
     - echo "${DOCKER_PASS}" | docker login -u "${DOCKER_USER}" --password-stdin
-
-    # Enable QEMU for cross-platform builds
-    - docker run --privileged --rm tonistiigi/binfmt --install all
-
-    # Create and bootstrap a Buildx builder
-    - docker buildx create --name multiarch --use
-    - docker buildx inspect --bootstrap
+    - docker context create builder --use
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
     - docker buildx build --platform linux/amd64,linux/arm64 -t mhassaankhokhar/filter-stack:$CI_COMMIT_SHA .
