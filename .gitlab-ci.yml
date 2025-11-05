@@ -1,9 +1,8 @@
 stages:
   - build
 variables:
-  # Use Docker-in-Docker image
+  DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: "/certs"
 build-job:
   stage: build
   image: jdrouet/docker-with-buildx:stable
