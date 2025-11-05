@@ -9,7 +9,13 @@ build-job:
   image: docker:24-dind
   services:
     - docker:24-dind
+  before_script:
+    - echo "docker hub login"
+    - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
-    - docker build -t mhassaankhokhar/filter-stack:$CI_COMMIT_SHA .
+    - docker buildx build --platform linux/amd64,linux/arm64 -t mhassaankhokhar/filter-stack:$CI_COMMIT_SHA .
+    - docker push mhassaankhokhar/filter-stack:$CI_COMMIT_SHA
+  after_script:
+    - docker logout
 
