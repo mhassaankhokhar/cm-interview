@@ -15,8 +15,7 @@ build-job:
     - echo "${DOCKER_PASS}" | docker login --username "${DOCKER_USER}" --password-stdin
   script:
     - echo "Hello, $GITLAB_USER_LOGIN!"
-    - docker context create builder
-    - docker buildx use builder
+    - docker buildx create builder --use
     - docker buildx build --platform linux/amd64,linux/arm64 -t mhassaankhokhar/filter-stack:$CI_COMMIT_SHA .
     - docker push mhassaankhokhar/filter-stack:$CI_COMMIT_SHA
   after_script:
